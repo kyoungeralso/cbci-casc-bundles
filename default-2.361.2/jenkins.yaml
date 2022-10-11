@@ -8,7 +8,3 @@ unclassified:
     collectingMetricsPeriodInSeconds: 30
   globalDefaultFlowDurabilityLevel:
     durabilityHint: MAX_SURVIVABILITY
-  provisioningLimitConfiguration:
-    limit:
-      executors: 50
-      nodes: 20
