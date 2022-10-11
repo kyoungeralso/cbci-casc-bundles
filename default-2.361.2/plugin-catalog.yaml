@@ -1,9 +1,10 @@
 type: plugin-catalog
 version: '1'
 name: default
-
 configurations:
-  - description: Non-CAP plugins
-    includePlugins:
-      cloudbees-prometheus:
-        version: '1.0'
+- description: Non-CAP plugins
+  includePlugins:
+    cloudbees-prometheus:
+      version: '1.0'
+    lockable-resources:
+      version: '2.16'

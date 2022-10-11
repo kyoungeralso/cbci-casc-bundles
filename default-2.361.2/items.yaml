@@ -1,25 +1,86 @@
 removeStrategy:
-  items: 'NONE'
-  rbac: 'SYNC'
-
+  rbac: SYNC
+  items: NONE
 items:
+- kind: folder
+  name: folder-example
+  description: ''
+  displayName: folder-example
+  items:
   - kind: pipeline
-    name: pipeline-example
-    displayName: Pipeline Job example
+    name: another-pipeline
+    concurrentBuild: true
     definition:
       cpsFlowDefinition:
         sandbox: true
         script: |
+          // Uses Declarative syntax to run commands inside a container.
           pipeline {
               agent {
-                  kubernetes true
+                  kubernetes {
+                      // Rather than inline YAML, in a multibranch Pipeline you could use: yamlFile 'jenkins-pod.yaml'
+                      // Or, to avoid YAML:
+                      // containerTemplate {
+                      //     name 'shell'
+                      //     image 'ubuntu'
+                      //     command 'sleep'
+                      //     args 'infinity'
+                      // }
+                      yaml '''
+          apiVersion: v1
+          kind: Pod
+          spec:
+            containers:
+            - name: shell
+              image: ubuntu
+              command:
+              - sleep
+              args:
+              - infinity
+          '''
+                      // Can also wrap individual steps:
+                      // container('shell') {
+                      //     sh 'hostname'
+                      // }
+                      defaultContainer 'shell'
+                  }
               }
-
               stages {
-                  stage('Hello') {
+                  stage('Main') {
                       steps {
-                          echo 'Hello World'
+                          sh 'hostname'
                       }
                   }
               }
           }
+    description: ''
+    disabled: false
+    displayName: another-pipeline
+    resumeBlocked: false
+  properties:
+  - envVars: {}
+  - itemRestrictions:
+      filter: false
+- kind: pipeline
+  name: pipeline-example
+  concurrentBuild: true
+  definition:
+    cpsFlowDefinition:
+      sandbox: true
+      script: |
+        pipeline {
+            agent {
+                kubernetes true
+            }
+
+            stages {
+                stage('Hello') {
+                    steps {
+                        echo 'Hello World'
+                    }
+                }
+            }
+        }
+  disabled: false
+  displayName: Pipeline Job example
+  resumeBlocked: false

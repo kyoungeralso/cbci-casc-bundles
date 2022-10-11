@@ -1,8 +1,15 @@
 jenkins:
-  systemMessage: "Configured automatically by Configuration as Code for Controllers (2.361.2)\n\n"
+  systemMessage: "Configured automatically by Configuration as Code for Controllers\
+    \ (2.361.2) - Modified by Kenny\r\n\r\n"
 notificationConfiguration:
   enabled: true
   router: operationsCenter
 unclassified:
   cloudbeesPrometheus:
     collectingMetricsPeriodInSeconds: 30
+  globalDefaultFlowDurabilityLevel:
+    durabilityHint: MAX_SURVIVABILITY
+  provisioningLimitConfiguration:
+    limit:
+      executors: 50
+      nodes: 20
