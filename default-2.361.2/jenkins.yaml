@@ -1,6 +1,5 @@
 jenkins:
-  systemMessage: "Configured automatically by Configuration as Code for Controllers\
-    \ (2.361.2) - Modified by Kenny\r\n\r\n"
+  systemMessage: "Configured automatically by Configuration as Code for Controllers (2.361.2) - Modified by Kenny\r\n\r\n"
 notificationConfiguration:
   enabled: true
   router: operationsCenter
